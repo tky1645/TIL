@@ -17,3 +17,35 @@
 
 - containerのlog確認
 ```docker logs <container-id>```
+
+- containerの削除
+```docker rm <container-id>```
+
+- imageの削除
+```docker rmi <image-id>```
+
+# DockerFile周り
+- DockerFileとは
+imageを作成するためのファイルのこと。ファイル名を`Dockerfile`とした上で保存。
+docker buildコマンドを実行すると内容に基づいてimageを作成する事ができる
+
+- DockerFileの記述形式
+```
+FROM イメージ名
+COPY コピー元のファイル(フォルダ)名 コピー先のファイル(フォルダ)名
+WORKDIR RUN, CMD実行の際のディレクトリ
+RUN imageをビルドする際に実行するLinuxコマンド
+CMD containerを起動する際に実行するコマンド
+:
+```
+- DockerFileの記述例
+```
+FROM python:3.8
+COPY /example.py /sample
+WORKDIR /app
+RUN pip install pandas
+CMD ["python", "/example.py"]
+```
+
+- DockerFileの実行
+```docker build -t <作成するimage名> <Dockerfileと同じ階層のディレクトリパス>```
