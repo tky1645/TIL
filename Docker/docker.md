@@ -48,4 +48,5 @@ CMD ["python", "/example.py"]
 ```
 
 - DockerFileの実行
-```docker build -t <作成するimage名> <Dockerfileと同じ階層のディレクトリパス>```
+```docker build <Dockerfileのパス>```
+```docker build -t <作成するimage名> <Dockerfileのパス>```
