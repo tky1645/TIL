@@ -28,14 +28,16 @@
 - DockerFileとは
 imageを作成するためのファイルのこと。ファイル名を`Dockerfile`とした上で保存。
 docker buildコマンドを実行すると内容に基づいてimageを作成する事ができる
+ちなみに、container立上げまでの流れは以下
+Dockerfile -> **build** -> image -> **run** -> container
 
 - DockerFileの記述形式
 ```
-FROM イメージ名
-COPY コピー元のファイル(フォルダ)名 コピー先のファイル(フォルダ)名
-WORKDIR RUN, CMD実行の際のディレクトリ
-RUN imageをビルドする際に実行するLinuxコマンド
-CMD containerを起動する際に実行するコマンド
+FROM <イメージ名>
+COPY <コピー元のファイル(フォルダ)名 コピー先のファイル(フォルダ)名>
+WORKDIR <RUN, CMD実行の際のディレクトリ>
+RUN <imageをビルドする際に実行するLinuxコマンド>
+CMD <containerを起動する際に実行するコマンド>
 :
 ```
 - DockerFileの記述例
