@@ -1,3 +1,5 @@
+# PyTorchとは
+オブジェクト指向型の深層学習ライブラリ。
 # Import周り
 - 初めに
 ```import torch```
