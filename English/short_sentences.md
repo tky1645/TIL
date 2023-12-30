@@ -1,9 +1,9 @@
 # 短文
 1. **On the verge of** a magnificent discovery, the scientist commenced a **survey** in the forest, **concurrently** tracking a **variety of vertebrate** species and **implementing** new **data ingestion** techniques.
-   - 壮大な発見の寸前に、科学者は森で調査を開始し、さまざまな脊椎動物種を同時に追跡し、新しいデータ摂取技術を実施した。
+   - 壮大な発見の寸前に、科学者は森で調査を開始し、さまざまな脊椎動物種を同時に追跡し、新しいデータ取得技術を実施した。
 
 2. The **polymorphic** software **suite**, **superior to** its predecessors, allows for **element-wise** manipulation of **data**, **benefiting from** an **intuitive syntax** and **empirical** validation.
-   - その多形性のソフトウェアスイートは、先行製品より優れており、データの要素ごとの操作を直感的な構文と経験的検証から恩恵を受けて可能にする。
+   - その多相型のソフトウェアセットは、先行製品より優れており、データの要素ごとの操作を直感的な構文と経験的検証から恩恵を受けて可能にする。
 
 3. The **execution** of the plan was **preceded** by a comprehensive **notation** system to **account for** every possible **occurrence**, ensuring no detail was overlooked.
    - 計画の実行は、あらゆる可能性の発生を説明する包括的な表記システムによって先行され、細部が見落とされないように保証された。
