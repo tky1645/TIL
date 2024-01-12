@@ -5,8 +5,29 @@ setup()関数を呼び出す処理を記載して、その引数でパッケー�
 - setup.pyの基本的な構文
 ```python
 from setuptools import setup
-setup()
+setup(
+  name='sample',
+  version='1.0.0',
+  packages=['sample'],
+  install_requires=_requires_from_file('requirements.txt'),
+)
 ```
+ここで、setup関数の各引数の意味は次の通り。
+
+- `name`: パッケージ名
+- `version`: パッケージバージョン
+- `packages`: パッケージとなるディレクトリを指定する
+  - find_packagesで __ init__.pyが存在するディレクトリを検索して自動でパッケージ指定する。
+  - パッケージから外す内容を指定も可能 find_packages(exclude=["*.pyc"])
+- `install_requires`: 依存パッケージを指定(requirements.txtで指定)
+  - requirements.txtじゃなくても、直接指定も可能
+  ```python
+  install_requires=[
+    'numpy>=1.18.5',
+    'flask<=1.1.2',
+    'requests==2.24.0',
+  ]
+  ```
 
 ### `__init__.py`とは [→参考](https://ya6mablog.com/how-to-use-init-py/)
 `__init__.py`とは、Pythonパッケージを定義するために必要なファイルの事。ここでの「パッケージ」とは、複数のPythonモジュール（`.py`ファイル）を含むディレクトリ（フォルダ）のことを指す。
@@ -41,15 +62,15 @@ Pythonプロジェクトにおいて、そのプロジェクトで必要とさ�
    - プロジェクトを異なる環境で実行する場合、同じバージョンの依存パッケージが必要となることが多い。`requirements.txt`を使用することで、異なる開発環境間での一貫性を保ちやすくなる。
 
 3. **簡単なインストール**:
-   - `pip`というPythonのパッケージ管理ツールを使用して、`requirements.txt`にリストされているパッケージを一括でインストールできる。コマンドは以下の通り: `pip install -r requirements.txt`。このコマンドにより、ファイルに記載されたすべての依存パッケージが自動的にインストールされる。
+   - `pip`というPythonのパッケージ管理ツールを使用して、`requirements.txt`にリストされているパッケージを一括でインストールできる。
+   - インストール時のコマンドは以下。
+   `pip install -r requirements.txt`
+   このコマンドにより、ファイルに記載されたすべての依存パッケージが自動的にインストールされる。
 
 4. **バージョン管理**:
    - `requirements.txt`では、パッケージの具体的なバージョンを指定することができる。これにより、プロジェクトが特定のバージョンのパッケージに依存している場合、その正確なバージョンをインストールできる。
 
-5. **自動化と統合の促進**:
-   - 継続的インテグレーション(CI)や継続的デリバリー(CD)のような自動化された開発プロセスにおいて、`requirements.txt`は依存パッケージを自動的にインストールする際に重要な役割を果たす。
-
-例として、`requirements.txt`の内容は以下のようにする。
+例として、`requirements.txt`の内容は以下のように記述する。
 
 ```
 flask==1.1.2
@@ -58,3 +79,8 @@ numpy>=1.18.5
 ```
 
 この例では、`flask`と`requests`は特定のバージョンが指定されており、`numpy`は指定されたバージョンまたはそれ以上のバージョンが要求されている。
+
+### `pip freeze`とは
+現在の環境にインストールされたパッケージとバージョンがpip install -rで使える設定ファイルの形式で出力されるコマンド。
+
+したがって、`pip freeze > requirements.txt`を実行すると、出力された`requirements.txt`を使って元の環境と同じバージョンのパッケージを別環境に一括でインストールできる。
