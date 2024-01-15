@@ -29,6 +29,22 @@ setup(
   ]
   ```
 
+setup.pyは、パッケージのルートディレクトリに置くのが一般的。
+例えば、以下のようなディレクトリ構成を持つパッケージ my_package の場合、setup.pyは my_package ディレクトリと同じ階層に置かれる。
+```
+my_package/
+├── my_package/ # パッケージと同じ名前のフォルダを作成する
+│   ├── __init__.py
+│   └── module1.py
+├── tests/
+│   ├── __init__.py
+│   └── test_module1.py
+├── README.md
+├── LICENSE
+├── setup.py # ルートディレクトリ直下にsetup.pyを置く
+└── requirements.txt
+```
+
 ### `__init__.py`とは [→参考](https://ya6mablog.com/how-to-use-init-py/)
 `__init__.py`とは、Pythonパッケージを定義するために必要なファイルの事。ここでの「パッケージ」とは、複数のPythonモジュール（`.py`ファイル）を含むディレクトリ（フォルダ）のことを指す。
 下記に`__init__.py`ファイルの役割を簡潔に説明する。
