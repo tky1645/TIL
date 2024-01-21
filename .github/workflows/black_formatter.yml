@@ -1,0 +1,15 @@
+name: black
+
+on:
+  pull_request:
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: psf/black@stable
+        with:
+          src: "./"
