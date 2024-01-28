@@ -16,8 +16,11 @@ projectごとに色を変更するためには、.vscode/settings.jsonを作成�
 なお、.gitignoreに`.vscode/`と追記する事でpushされる事は防ぐと尚よし。
 
 # 拡張機能
+
 ## Paste image
+
 - おすすめの設定  
+
 ```
 {
 "pasteImage.namePrefix": "${currentFileNameWithoutExt}_",// デフォルトのファイル名の頭にmarkdown名をつける
@@ -27,3 +30,9 @@ projectごとに色を変更するためには、.vscode/settings.jsonを作成�
 "pasteImage.filePathConfirmInputBoxMode":"onlyName",
 }
 ```
+
+# コードフォーマット設定について
+
+コードフォーマットを設定することで、コード実行・保存時(など)に自動で各コード規約に則った記述に変換されるようになる。
+個人的にはpython開発においては、`black`と`isort`を使用しており、`black`は`
+.py`と`.ipynb`のファイルを自動で整形、`isort`は`.py`ファイルの`import`周りを自動でソートしてくれる。
