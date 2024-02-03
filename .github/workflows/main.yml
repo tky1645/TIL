@@ -5,14 +5,17 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  echo_test:
     runs-on: ubuntu-latest
     steps: # 'steps' セクションを追加。何かしらのステップをここに記述する必要があります。
       - name: Example step
         run: echo "This is an example step for the 'build' job."
 
-  hoge:
-    runs-on: ubuntu-latest # 'runs-on' を追加して、実行する環境を指定
-    steps: # 'steps' セクションを 'hoge' ジョブにも追加
+  CI:
+    runs-on: ubuntu-latest 
+    strategy:
+        matrix:
+          python-version: ["pypy3.9", "pypy3.10", "3.9", "3.10", "3.11", "3.12"]
+    steps: 
       - name: Hoge step
         run: echo Hoge
