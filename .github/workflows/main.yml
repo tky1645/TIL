@@ -1,11 +1,18 @@
 name: actions test
+
 on:
-    push:
-    workflow_dispatch:
+  push:
+  workflow_dispatch:
+
 jobs:
-    build:
-        runs-on: ubuntsu-latest
-    hoge:
-        steps:
-            name: Hoge step
-            run: echo Hoge
+  build:
+    runs-on: ubuntu-latest
+    steps: # 'steps' セクションを追加。何かしらのステップをここに記述する必要があります。
+      - name: Example step
+        run: echo "This is an example step for the 'build' job."
+
+  hoge:
+    runs-on: ubuntu-latest # 'runs-on' を追加して、実行する環境を指定
+    steps: # 'steps' セクションを 'hoge' ジョブにも追加
+      - name: Hoge step
+        run: echo Hoge
