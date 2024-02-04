@@ -1,5 +1,6 @@
 # 環境構築
 - .github/workflows階層のyamlファイルを参照して実行する
+- [yamlファイル書き方の参考](https://qiita.com/shun198/items/14cdba2d8e58ab96cf95)
 - yamlファイルの構成  
 
 ```YAML:sample
@@ -25,6 +26,7 @@ jobs:
       - name: Display Python version
         run: python -c "import sys; print(sys.version)"
 ```
+- 各項目の説明
 
 | 階層1         | 階層2        | 階層3        | 階層4                 | 説明                       | 必須/オプション           |
 |---------------|--------------|--------------|----------------------|----------------------------|-------------------------|

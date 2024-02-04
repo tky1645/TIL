@@ -2,6 +2,8 @@ name: actions test
 
 on:
   push:
+    branches:
+        - actions_test
   workflow_dispatch:
 
 jobs:
