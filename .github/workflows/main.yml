@@ -20,4 +20,4 @@ jobs:
       - name: Install dependencies
         run: |
             python -m pip install --upgrade pip
-            pip install -r .\Git_Github\requirements.txt
+            pip install -r ./Git_Github/requirements.txt
