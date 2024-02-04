@@ -1,0 +1,22 @@
+{
+  "name": "Python DataSience",
+  "dockerComposeFile": [
+    "docker-compose.yml"
+  ],
+  "service": "jupyter",
+  "workspaceFolder": "/home/chinchilla",
+  "extensions": [
+    # PythonとJupyter
+    "ms-python.python",
+    "ms-toolsai.jupyter",
+    # Git周り
+    "mhutchie.git-graph",
+    "donjayamanne.githistory",
+    "eamodio.gitlens",
+    # その他
+    "ms-python.vscode-pylance",
+    "MS-CEINTL.vscode-language-pack-ja",
+    "Codeium.codeium",
+    "esbenp.prettier-vscode"
+  ]
+}
