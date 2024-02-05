@@ -48,3 +48,13 @@ jobs:
 
 - こちらを参考にテスト自動化まで実装
   - https://docs.github.com/ja/actions/automating-builds-and-tests/building-and-testing-python
+
+- テスト自動化
+```
+        - name: Test with pytest
+          run: |
+            pip install pytest pytest-cov
+            pytest #すべてのテストを実行すると場合
+            pytest ./Git_Github/test_sample.py 　#指定したテストを実行する場合
+
+```
