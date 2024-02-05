@@ -28,5 +28,5 @@ jobs:
         - name: Test with pytest
           run: |
             pip install pytest pytest-cov
-            pytest -v --result-log=tests/log.txt
+            pytest -v 
             #pytest ./Git_Github/test_sample.py 
