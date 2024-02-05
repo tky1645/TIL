@@ -1,7 +1,8 @@
 # 基本的なdockerコマンド
+
 - imageをpullして起動(image pull + container start)
 ```docker run <image名>```
-    - オプション
+  - オプション
     ```-it```: キーボード等の有効化
     ```-d```: 起動してデタッチ(コンテナの立ち上げ)
 
@@ -9,7 +10,7 @@
 
 - containerのリストアップ
 ```docker ps```
-    - オプション
+  - オプション
         ```-f <container名>```: フィルタリング
 
 - containerの停止
@@ -25,22 +26,27 @@
 ```docker rmi <image-id>```
 
 # DockerFile周り
+
 - DockerFileとは
 imageを作成するためのファイルのこと。ファイル名を`Dockerfile`とした上で保存。
 docker buildコマンドを実行すると内容に基づいてimageを作成する事ができる
 ちなみに、container立上げまでの流れは以下
-Dockerfile -> **build** -> image -> **run** -> container
+`Dockerfile` -> **build** -> `image` -> **run** -> `container`
+`docker-compose.yml`ファイルで直接イメージを指定すれば、Docker Composeでコンテナを起動するための`Dockerfile`は必要ないが、既存のイメージに対して追加の設定やカスタマイズを行いたい場合は、Dockerfileを作成し、それをdocker-compose.ymlから参照する。
 
 - DockerFileの記述形式
+
 ```
 FROM <イメージ名>
-COPY <コピー元のファイル(フォルダ)名 コピー先のファイル(フォルダ)名>
+COPY <コピー元のファイル(フォルダ)名> <コピー先のファイル(フォルダ)名>
 WORKDIR <RUN, CMD実行の際のディレクトリ>
 RUN <imageをビルドする際に実行するLinuxコマンド>
 CMD <containerを起動する際に実行するコマンド>
 :
 ```
+
 - DockerFileの記述例
+
 ```
 FROM python:3.8
 COPY /example.py /sample

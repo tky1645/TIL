@@ -1,0 +1,9 @@
+pandas-profiling
+xgboost
+lightgbm
+
+# bert
+transformers
+fugashi
+ipadic
+pytorch-lightning
