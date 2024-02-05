@@ -46,3 +46,5 @@ jobs:
 |               |              |              | `- run`              | コマンド実行           | ステップ内で必須 (必ず `uses` か `run` のいずれかが必要) |
 |               |              |              | `- env`              | 環境変数設定            | オプション          |
 
+- こちらを参考にテスト自動化まで実装
+  - https://docs.github.com/ja/actions/automating-builds-and-tests/building-and-testing-python
