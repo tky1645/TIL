@@ -14,7 +14,9 @@ jobs:
         run: echo "This is an example step for the 'build' job."
 
   CI:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # 書き込むために必要
     steps:
         - uses: actions/checkout@v4
         - name: Set up Python
