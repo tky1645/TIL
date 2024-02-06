@@ -1,3 +1,5 @@
+# 関連ファイル
+./github/workflows/actions_test.yaml
 # 環境構築
 - .github/workflows階層のyamlファイルを参照して実行する
 - [yamlファイル書き方の参考](https://qiita.com/shun198/items/14cdba2d8e58ab96cf95)
