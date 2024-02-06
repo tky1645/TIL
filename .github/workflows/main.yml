@@ -29,14 +29,6 @@ jobs:
           run: |
             pip install pytest pytest-cov
             pytest -v 
-        - name: Install Poetry
-          run: |
-            curl -sSL https://install.python-poetry.org | python - 
-            #Poetryの最新URLに変更
-        - name: Add path for Poetry
-          run: echo "$HOME/.poetry/bin" >> $GITHUB_PATH
-        - name: Install Dependencies
-          run: poetry install --no-interaction
         - uses: psf/black@stable
           with:
             src: "./"
