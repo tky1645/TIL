@@ -46,10 +46,9 @@ jobs:
 |               |              |              | `- run`              | コマンド実行           | ステップ内で必須 (必ず `uses` か `run` のいずれかが必要) |
 |               |              |              | `- env`              | 環境変数設定            | オプション          |
 
+# テスト自動化
 - こちらを参考にテスト自動化まで実装
   - https://docs.github.com/ja/actions/automating-builds-and-tests/building-and-testing-python
-
-# テスト自動化
 ```
         - name: Test with pytest
           run: |
@@ -61,8 +60,11 @@ jobs:
 >GitHub Actionsでは、あるステップが失敗した場合に以降のステップを実行しないようにするには、if条件を使用してそのステップの実行を制御することが一般的です。さらに、```jobs.<job_id>.steps[*].if```フィールドを使って、特定の条件下でのみステップを実行するかどうかを指定できます。  
 >ただし、テストに失敗するとそのステップ自体が失敗とみなされ、デフォルトでは失敗したステップ以降のステップは実行されません。これはGitHub Actionsの標準的な動作です。もし失敗した後も特定のステップを実行したい場合は、そのステップに```if: always()```を設定します。
 # フォーマット  
+  - リンターとフォーマッター
+    - https://zenn.dev/naiq112/articles/df1b32fc08d383
   - black使うやり方
     - blackでフォーマット済みかどうか確認してくれるだけ。自動実行はしない
     - https://zenn.dev/yumemi_inc/articles/2f9334de7fd165
   - フォーマッター走らせて、コードを修正してそのままコミットできるらしい
+    - ↓
     - https://qiita.com/Ouvill/items/7b6df0e9b981093b330f

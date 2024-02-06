@@ -7,22 +7,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  echo_test:
-    runs-on: ubuntu-latest
-    steps: # 'steps' セクションを追加。何かしらのステップをここに記述する必要があります。
-      - name: Example step
-        run: echo "This is an example step for the 'build' job."
-
   CI:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # 書き込むために必要
+      contents: write # フォーマット後のコードをコミット（書き込む）ために必要
     steps:
         - uses: actions/checkout@v4
         - name: Set up Python
           uses: actions/setup-python@v4
           with:
-            python-version: '3.11' #requirements.txtのモジュールが3.12以降を想定していないため
+            python-version: '3.11' #Ver指定がある場合はここで指定
         - name: Install dependencies
           run: |
             python -m pip install --upgrade pip            
