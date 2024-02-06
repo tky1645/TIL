@@ -29,9 +29,16 @@ jobs:
           run: |
             pip install pytest pytest-cov
             pytest -v 
-        - uses: psf/black@stable
-          with:
-            src: "./"
+        - name: Format with black
+          run: |
+            pip install black
+            black .
+        # blackのフォーマッターが実施済みか確認するコマンド
+        # - uses: psf/black@stable
+        #   with:
+        #     src: "./"
+
+        # フォーマット後のコードをコミット
         - uses: stefanzweifel/git-auto-commit-action@v3.0.0
           with:
             commit_message: Apply Code Formatter Change
