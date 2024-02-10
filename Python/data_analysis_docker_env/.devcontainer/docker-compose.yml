@@ -1,11 +1,11 @@
-version: "3.9"
+# version: "3.9"
 services:
   jupyter:
-    container_name: my-jupyter
+    container_name: python-datascience
     image: jupyter/datascience-notebook
     build: ./python # Use the Dockerfile at ./python
     ports:
-      - 8888:8888
+      - 8888:8889
     environment:
       # Set environment variables
       - JUPYTER_ENABLE_LAB=yes
@@ -13,5 +13,5 @@ services:
       # Mount Python directory to /home/chinchilla/
       - type: bind
         source: ../../..
-        target: /home/chinchilla
+        target: /home/chinchilla/TIL
     command: start-notebook.sh

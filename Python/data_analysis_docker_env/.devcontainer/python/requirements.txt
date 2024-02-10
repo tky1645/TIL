@@ -1,4 +1,7 @@
+# EDA
 pandas-profiling
+
+# 機械学習周り
 xgboost
 lightgbm
 
@@ -7,3 +10,6 @@ transformers
 fugashi
 ipadic
 pytorch-lightning
+
+# TensorFlow
+tensorflow
