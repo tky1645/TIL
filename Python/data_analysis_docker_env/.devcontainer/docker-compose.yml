@@ -15,3 +15,4 @@ services:
         source: ../../..
         target: /home/chinchilla/TIL
     command: start-notebook.sh
+    user: root
