@@ -1,40 +1,42 @@
-# 基本的なdockerコマンド
+# 基本的な docker コマンド
 
-- imageをpullして起動(image pull + container start)
-```docker run <image名>```
+- image を pull して起動(image pull + container start)
+  `docker run <image名>`
+
   - オプション
-    ```-it```: キーボード等の有効化
-    ```-d```: 起動してデタッチ(コンテナの立ち上げ)
+    `-it`: キーボード等の有効化
+    `-d`: 起動してデタッチ(コンテナの立ち上げ)
 
-    ```--name　<container名>```: container名を付ける
+    `--name　<container名>`: container 名を付ける
 
-- containerのリストアップ
-```docker ps```
+- container のリストアップ
+  `docker ps`
+
   - オプション
-        ```-f <container名>```: フィルタリング
+    `-f <container名>`: フィルタリング
 
-- containerの停止
-```docker stop <container-id>```
+- container の停止
+  `docker stop <container-id>`
 
-- containerのlog確認
-```docker logs <container-id>```
+- container の log 確認
+  `docker logs <container-id>`
 
-- containerの削除
-```docker rm <container-id>```
+- container の削除
+  `docker rm <container-id>`
 
-- imageの削除
-```docker rmi <image-id>```
+- image の削除
+  `docker rmi <image-id>`
 
-# DockerFile周り
+# DockerFile 周り
 
-- DockerFileとは
-imageを作成するためのファイルのこと。ファイル名を`Dockerfile`とした上で保存。
-docker buildコマンドを実行すると内容に基づいてimageを作成する事ができる
-ちなみに、container立上げまでの流れは以下
-`Dockerfile` -> **build** -> `image` -> **run** -> `container`
-`docker-compose.yml`ファイルで直接イメージを指定すれば、Docker Composeでコンテナを起動するための`Dockerfile`は必要ないが、既存のイメージに対して追加の設定やカスタマイズを行いたい場合は、Dockerfileを作成し、それをdocker-compose.ymlから参照する。
+- DockerFile とは
+  image を作成するためのファイルのこと。ファイル名を`Dockerfile`とした上で保存。
+  docker build コマンドを実行すると内容に基づいて image を作成する事ができる
+  ちなみに、container 立上げまでの流れは以下
+  `Dockerfile` -> **build** -> `image` -> **run** -> `container`
+  `docker-compose.yml`ファイルで直接イメージを指定すれば、Docker Compose でコンテナを起動するための`Dockerfile`は必要ないが、既存のイメージに対して追加の設定やカスタマイズを行いたい場合は、Dockerfile を作成し、それを docker-compose.yml から参照する。
 
-- DockerFileの記述形式
+- DockerFile の記述形式
 
 ```
 FROM <イメージ名>
@@ -45,7 +47,7 @@ CMD <containerを起動する際に実行するコマンド>
 :
 ```
 
-- DockerFileの記述例
+- DockerFile の記述例
 
 ```
 FROM python:3.8
@@ -55,6 +57,31 @@ RUN pip install pandas
 CMD ["python", "/example.py"]
 ```
 
-- DockerFileの実行
-```docker build <Dockerfileのパス>```
-```docker build -t <作成するimage名> <Dockerfileのパス>```
+- DockerFile の実行
+  `docker build <Dockerfileのパス>`
+  `docker build -t <作成するimage名> <Dockerfileのパス>`
+
+# Docker Compose 周り
+
+- Docker Compose とは
+  複数のコンテナを管理するためのツール。
+  サービスを定義する YAML ファイルを作成し、コマンドを１つ実行するだけで、瞬時にすべて立ち上げたり、すべてを削除したりできる。
+  起動には docker-compose.yml を使用する。
+
+- docker-compose.yml ファイルの記述例
+
+```docker-compose.yml
+version: "3.8"    # docker-composeのバージョン
+services:         # アプリケーションを動かすための各要素をServiceと呼ぶ
+  web:            # コンテナ名
+    image: nginx  # 参照するイメージ名
+    ports:        # ポートフォワーディングの設定(転送元:転送先)
+      - 80:80
+    volumes:      # ボリュームの設定(転送元:転送先)
+      - ./src:/usr/share/nginx/html
+    command:      # コンテナ起動時に実行するコマンドを指定
+      - ["nginx", "-g", "daemon off;"]
+```
+
+- Docker Compose を使用する
+  `docker-compose up -d`
