@@ -1,5 +1,8 @@
 ## 設定
 - gitコマンドを一括で入力する
+  - `git add` ,`git commit`, `git push`をまとめて`gcp`にする。みたいなの。 
+  - ↓gitbashのプロファイルを書き換える方法なのでVScodeのterminalでPowerShellとか使ってると使えない(´・ω・｀)
+  - PowerShellのプロファイルを書き換えたらいけるかな？？
   - https://qiita.com/ut0n/items/2074623c0b8c1c9ff8e6#windows%E7%B7%A8
 ## github認証
 ### SSHとは
