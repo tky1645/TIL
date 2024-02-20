@@ -1,0 +1,47 @@
+name: Create Issue on New File
+
+on:
+  push:
+    paths:
+      - 'Book_reading/**'
+
+jobs:
+  check-new-file:
+    runs-on: ubuntu-latest
+    outputs:
+      is_new_file: ${{ steps.filter.outputs.new_file }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Check for new file
+        id: filter
+        run: |
+          git fetch --depth=1 origin ${{ github.event.before }}:${{ github.event.before }}
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- 'Book_reading/**')
+          NEW_FILES=""
+          for FILE in $CHANGED_FILES; do
+            if [ ! -f ${{ github.workspace }}/../${{ github.event.before }}/$FILE ]; then
+              NEW_FILES="${NEW_FILES} $FILE"
+            fi
+          done
+          if [ -n "$NEW_FILES" ]; then
+            echo "New file detected: $NEW_FILES"
+            echo "::set-output name=new_file::true"
+          else
+            echo "No new files detected"
+            echo "::set-output name=new_file::false"
+          fi
+
+  create-issue:
+    needs: check-new-file
+    if: needs.check-new-file.outputs.is_new_file == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Issue
+        uses: imjohnbo/issue-bot@v3
+        with:
+          title: "読書共有会を開く"
+          body: "新しい書評がプッシュされました。ools have a habit of believing that everything written by a famous author is admirable."
+          labels: "new-file"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
