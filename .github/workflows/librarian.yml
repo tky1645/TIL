@@ -20,10 +20,10 @@ jobs:
           CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- 'Book_reading/**')
           NEW_FILES=""
           for FILE in $CHANGED_FILES; do
-            if [ ! -f ${{ github.workspace }}/../${{ github.event.before }}/$FILE ]; then
-              NEW_FILES="${NEW_FILES} $FILE"
+            if git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- $FILE | grep -q $FILE; then
+                NEW_FILES="${NEW_FILES} $FILE"
             fi
-          done
+            done
           if [ -n "$NEW_FILES" ]; then
             echo "New file detected: $NEW_FILES"
             echo "::set-output name=new_file::true"
