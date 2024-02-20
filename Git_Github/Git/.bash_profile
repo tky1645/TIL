@@ -15,6 +15,6 @@ gitcommit() {
 
 alias gc=gitcommit
 
-alias gitb="git branch"
-alias gitch="git checkout"
-alias gits="git status"
+alias gb="git branch"
+alias gch="git checkout"
+alias gs="git status"
