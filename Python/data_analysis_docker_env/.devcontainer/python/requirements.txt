@@ -6,6 +6,7 @@ xgboost
 lightgbm
 
 # bert
+# transformers[ja,sentencepiece,torch]
 transformers
 fugashi
 ipadic
