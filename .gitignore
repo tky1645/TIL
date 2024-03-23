@@ -16,3 +16,6 @@ env/
 
 # zip files
 *.zip
+
+# shellgei160
+shell/shellgei160/*
