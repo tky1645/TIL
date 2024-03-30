@@ -8,3 +8,5 @@
 
 ## Tutorial 2
 - https://nishinatoshiharu.com/ts-react-tutorial/
+- 親コンポーネント (Board) から子コンポーネント (Square) に伝えるために、props というものを使用します。
+- 何かを「記憶」するために、コンポーネントは state というものを使用します。

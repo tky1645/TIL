@@ -1,0 +1,4 @@
+- ランタイム設定でhandler関数名が指定されている。そこがエントリーポイントになる。そのため、handler関数名と一致する関数をファイル名にする必要
+  - 例｜index.js内にhandelrという名前の関数
+- DynamoDBアクセス権限周りでエラーになった
+  - 対策｜https://qiita.com/ayumun_jp/items/d0ebe97ff579efb61922
