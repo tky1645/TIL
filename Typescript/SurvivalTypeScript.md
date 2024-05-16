@@ -164,24 +164,104 @@ console.log(title);
 title = book?.title ?? "undefinedの時に代入されるデフォルトタイトル"
 console.log(title);
 ```
-ここから
-https://typescriptbook.jp/reference/values-types-variables/array
+### 配列
+- 配列の代入
+  - 配列の代入は元の配列の変更の影響を受ける
+  - 配列の代入はシャロ―コピーがデフォルトなので、スプレッド構文を使って別インスタンスを生成する
+  - ただし、注意点として、スプレッド構文をつかう方法は浅いコピー(shallow copy)です。深いコピー(deep copy)ではない点に注意してください。浅いコピーで複製できるのは、1層目の要素だけです。配列の中に配列が入っている場合は、2層目より深くにある配列は、元の配列のものと値を共有します。
 
 ```TypeScript
-```
-```TypeScript
+
+const arr = [1, 2, 3];
+const backup = arr;
+arr.push(4); // 変更
+console.log(arr);
+console.log(backup); // こちらにも影響
+
+const arr = [1, 2, 3];
+const backup = [...arr]; // スプレッド構文
+arr.push(4); // 変更
+console.log(backup); // 影響なし
 ```
 
 ```TypeScript
+const arr = [1, [2, 3]];
+const backup = [...arr];
+arr[1].push(4);
+console.log(arr[1]);
+console.log(backup[1]); // 変更の影響あり
+```
+- 分割代入
+
+```TypeScript
+const array : number[] = [1,2,3,4]
+const [a,b,c] = array
+console.log(a)
+
+const[id, ...rest] = array
+console.log(rest)
+```
+- 配列のメソッドは破壊的かどうかを意識して使う。
+  - 破壊的なメソッドに対してはスプレッド構文でコピーしてから使うと良い
+
+```TypeScript
+const array : number[] = [1,2,3,4]
+const sorted = [...array].sort((a,b)=>a-b)
+console.log(sorted)
+```
+
+### タプル
+
+```TypeScript
+// tupleの宣言
+const tup = [1,"aaa", True]
+// 分割代入も可能
+const [,,res] = tup
+```
+- Promise.all()の戻り値として使われる
+```TypeScript
+async function take3seconds():Promise<string>{
+    return "OK"
+}
+async function take5seconds():Promise<number>{
+    return 10
+}
+const result = await Promise.all([
+    take3seconds(),
+    take5seconds()
+]);
+
 ```
 ```TypeScript
+enum defect_enum  {
+    suana,
+    fb
+}
+console.log(defect_enum.suana) //暗黙的にnumber型
+console.log(typeof(defect_enum.suana))
+enum defect_String_enum {
+    suana="suana"
+}
+console.log(defect_String_enum.suana)
+console.log(typeof(defect_String_enum.suana))//明示的にstring型にもできる
 ```
+- union型
 ```TypeScript
+let flag:boolean|undefined
+type errorcode =
+| 400
+| 401
+let error :errorcode
+
+error = 500
+// type cellList = string[]|number[]
+type cellList = (string|number)[]
+const cells:cellList = ["a","a","a"]
 ```
-```TypeScript
-```
-```TypeScript
-```
+
+
+
+# AtCoderで実際に使ってみた
 - https://qiita.com/drken/items/fd4e5e3630d0f5859067#%E7%AC%AC-1-%E5%95%8F--abc-086-a---product-100-%E7%82%B9
 ```TypeScript
 import {readFileSync} from 'fs'
@@ -340,6 +420,73 @@ for(const [k, v] of sorted.entries())
 console.log(alice- bob)
 ```
 ```TypeScript
+const input: number[] = [1,2,3,4,5,5,7,78,8,9, 3,3, 5]
+// set型を使用
+const input_set:Set<number> =  new Set(input)
+console.log(input_set.size)
+
+
+// バケット法を使用
+const N=input.length
+const d_max = 100
+const d_min = 1
+//TSに辞書型はないので以下の書き方で代用
+let number_exist_counter:{[key:number]:number} = {}
+input.forEach((v,i)=>{
+    number_exist_counter[v] += 1
+})
+// 要素数を取得するにもlengthプロパティなどないので、工夫が必要。
+console.log(Object.keys(number_exist_counter).length)
+
+```
+```TypeScript
+const bill={
+    high:10000,
+    mid:5000,
+    low:1000
+}
+const N=1
+const Y=1000
+
+const calcTotal = (i:number, j:number, k:number) => {
+    const ret = bill.high*i + bill.mid*j + bill.low*k
+    return ret
+}
+let matches:number[][]=[]
+for(let i=0;i<=N;i++){
+    for(let j=0;j<=N-i;j++){
+        if(calcTotal(i,j, N-i-j) === Y) {
+            matches.push([i,j,N-i-j])
+            break
+        }
+    }
+}
+console.log(matches)
+```
+```TypeScript
+const S:string= "dreameraser"
+let flag = false
+let temp_array:string[] = []
+let temp_string:string
+
+const checkWord = (word:string) => {
+    return (word === "maerd" || word === "remaerd"|| word === "esare" || word === "resare")
+}
+
+for(let i=0;i<S.length;i++){
+    temp_array.push(S[S.length-i-1])
+    temp_string = temp_array.reduce((acc, current) => acc+current)
+    console.log(temp_string)
+
+    if(checkWord(temp_string)){
+        temp_array = []
+        flag = true
+    }
+    else flag=false
+}
+
+const output:string = flag? "YES": "NO"
+console.log(output)
 ```
 ```TypeScript
 ```
@@ -350,9 +497,33 @@ console.log(alice- bob)
 ```TypeScript
 ```
 ```TypeScript
-```
-```TypeScript
-```
-```TypeScript
+function main(lines: string[]) {
+  /**
+   * このコードは標準入力と標準出力を用いたサンプルコードです。
+   * このコードは好きなように編集・削除してもらって構いません。
+   *
+   * This is a sample code to use stdin and stdout.
+   * You can edit and even remove this code as you like.
+  */
+  lines.forEach((v, i) => console.log(`lines[${i}]: ${v}`));
+}
+
+function readFromStdin(): Promise<string[]> {
+  return new Promise(resolve => {
+    let data: string = "";
+    process.stdin.resume();
+    process.stdin.setEncoding("utf8");
+
+    process.stdin.on("data", d => {
+      data += d;
+    });
+    process.stdin.on("end", () => {
+      resolve(data.split("\n"));
+    });
+  })
+}
+
+readFromStdin().then(main)
+
 ```
 
