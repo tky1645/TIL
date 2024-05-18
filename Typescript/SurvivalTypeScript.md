@@ -245,7 +245,7 @@ enum defect_String_enum {
 console.log(defect_String_enum.suana)
 console.log(typeof(defect_String_enum.suana))//明示的にstring型にもできる
 ```
-- union型
+### union型
 ```TypeScript
 let flag:boolean|undefined
 type errorcode =
@@ -258,7 +258,126 @@ error = 500
 type cellList = (string|number)[]
 const cells:cellList = ["a","a","a"]
 ```
+- 判別可能なユニオン型
+  - ユニオン型が複数のオブジェクト型から成るとき、どのオブジェクト型が実際に代入されているかを判断する処理が煩雑になりがち
 
+```TypeScript
+type UploadedStatus = InProgress | Success;
+type InProgress = {done:boolean, status:string, progress:number}
+type Success = {done:boolean, status: string}
+
+//InProgress.done === False
+//Success.done === True
+//だと仮定する
+const uploadStatus = (uploadStatus: UploadedStatus) => {
+    // if(typeof(uploadStatus) == 'InProgress') //typeofだと"object"が戻り値になるので判定条件として使えない
+    if(!uploadStatus.done){
+        //uploadStatusはInProgress型だとif条件で絞り込んであるのにコンパイラがエラーを吐く。コンパイラが認識していない。
+        //progressプロパティがSuccess型に存在しないため
+        console.log(uploadStatus.progress) 
+    }
+    else{
+        //statusプロパティはInProgress型、Success型両方に存在するのでエラーにならない。
+        console.log(uploadStatus.status) 
+    }
+}
+```
+- リテラル型で定義したdiscriminatorプロパティを用意することで、
+  - 代入されているオブジェクト型の判別が単純化できる
+  - コンパイラも認識できるようになる
+```TypeScript
+type UploadedStatus = InProgress | Success;
+type InProgress = {discriminator:"InProgress", done:boolean, status:string, progress:number}
+type Success = {discriminator:"Success", done:boolean, status: string}
+
+const uploadStatus = (uploadStatus: UploadedStatus) => {
+    if(uploadStatus.discriminator === "InProgress"){
+        console.log(uploadStatus.progress) 
+    }
+    else if(uploadStatus.discriminator === "Success"){
+        console.log(uploadStatus.status) 
+    }
+}
+```
+### 型エイリアス
+- 型に名前をつける
+```TypeScript
+// こういうの
+type phone = {
+    name:sting
+    phoneNumber:number
+    address:MailAdress
+}
+//ユニオン型とかリテラル型とかなんにでもエイリアスつけられる
+type FugaID = string | number
+type ErrorCode = 400
+//関数型に名前を付けることも可能
+type callback = (param:string) => boolearn
+```
+### 型アサーション
+- コンパイラの方推論の明示的に上書きする
+```TypeScript
+const FugaID:string | number = "yappari string ireruwa!"
+console.log((FugaID as string).length)
+// console.log((FugaID as number) + 10)//コンパイラがエラー　 だませなかった
+```
+### constアサーション「as const」 
+- オブジェクトリテラルを丸ごとreadonlyにできる
+- プロパティごとにreadonly書かなくてもよい
+- as constで再帰的に再代入禁止にできると書いてあるが、ネストが２層目以降のプロパティは代入可能だった。
+```TypeScript
+// オブジェクトリテラルにas constをつける
+const person1 = {
+    name : "namae",
+    age : 18
+}
+const student1 = {
+    person: person1, 
+    classname : 1-3
+} as const
+// 代入可能
+student1.person.age = 21
+```
+### typeof
+```TypeScript
+//nullも“object”が帰る
+const param = null
+console.log(typeof(param) === "object")
+
+//nullでないobjectを判定する
+if(typeof(param) === "object" && param !== null){
+    console.log("not null")
+}
+else{
+    console.log("It's null")
+}
+```
+```TypeScript
+// 配列も"objectが帰るので、Array.isArray()をつかう
+console.log(typeof([1,2,3]) === "object") //true
+console.log(Array.isArray([1,2,3])) //true
+```
+### 等価演算子
+- 必要なタイミングで等価演算子を使うといいでしょう。とはいえその必要なタイミングの多くはx == nullです。これは変数xがnullかundefinedのときにtrueを返します。
+- NaNはnumber型の値ですが、どの値と比較をしてもfalseを返します。たとえそれがNaN同士の比較であってもfalseを返します。
+```TypeScript
+const isNan = (param:number) => param !== param
+console.log(isNan(NaN))
+```
+- object型の場合は、==でも同じ変数名の比較でない場合はfalseとなる
+```TypeScript
+console.log({} == {});
+// false
+console.log({} === {});
+// false
+console.log({ age: 18 } == { age: 18 });
+// false
+console.log({ equipment: "glasses" } === { equipment: "glasses" });
+// false
+const obj = { hair: "blond" };
+console.log(obj === obj);
+// true
+```
 
 
 # AtCoderで実際に使ってみた
