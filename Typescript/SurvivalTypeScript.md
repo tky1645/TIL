@@ -393,7 +393,15 @@ const res3 =  flag === undefined //ネスト化も可能
     ? "ng"
     :"unknouw"
 ```
+### for-of文 - 拡張for文
 ```TypeScript
+for (const num of [1,2,3,4,5]){
+    console.log(num)
+}
+// インデックスを取得するにはentriesメソッドを使う
+for(const[index, num] of [1,2,3].entries()){
+    console.log(index, num)
+}
 ```
 ```TypeScript
 ```
