@@ -315,7 +315,7 @@ type ErrorCode = 400
 type callback = (param:string) => boolearn
 ```
 ### 型アサーション
-- コンパイラの方推論の明示的に上書きする
+- コンパイラの型推論の明示的に上書きする
 ```TypeScript
 const FugaID:string | number = "yappari string ireruwa!"
 console.log((FugaID as string).length)
@@ -378,6 +378,49 @@ const obj = { hair: "blond" };
 console.log(obj === obj);
 // true
 ```
+
+# 文
+### 三項演算子
+```TypeScript
+const flag = true
+const res =  flag? "ok": "ng"
+// const res2 = if(flag) "ok" else "ng" //ifは文なので代入できない
+const res3 =  flag === undefined //ネスト化も可能
+    ? "undefined"
+    :flag === true
+    ? "ok"
+    :flag === false
+    ? "ng"
+    :"unknouw"
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```
+
 
 
 # AtCoderで実際に使ってみた
