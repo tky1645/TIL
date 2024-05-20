@@ -403,9 +403,53 @@ for(const[index, num] of [1,2,3].entries()){
     console.log(index, num)
 }
 ```
+### switch
+https://typescriptbook.jp/reference/statements/switch
+
+- 明示的に分岐を抜ける処理を書かないとすべてのcaseが検査されてしまう（フォールスルー）
+- スコープは全caseで共通
+
 ```TypeScript
+const param = "A"
+switch(param){
+    case "A":
+        const flag = true
+        console.log("case 1")
+    case "A":
+        // const flag = true //scopeは全caseで共有される
+        console.log("case 2") //これも出力される
+}
+
+
+switch(param){
+    case "A":{
+        const flag = true
+        console.log("case 1")
+    }
+    case "A":{
+        const flag = true //ブレースでスコープを区切ればOK
+        console.log("case 2") //これも出力される
+    }
+}
 ```
+### 例外処理 
 ```TypeScript
+try{
+    //エラーの可能性がある処理
+    throw new Error("エラー")
+}
+catch(e){
+    //エラーの場合分けはcatch内で行う
+    if(e instanceof Error){
+        console.log(e)
+    }
+    else{
+        console.log("想定外のエラー！まじでやばい")
+    }
+}
+finally{
+    //何らかの処理
+}
 ```
 ```TypeScript
 ```
