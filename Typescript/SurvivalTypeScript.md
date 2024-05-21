@@ -451,7 +451,25 @@ finally{
     //何らかの処理
 }
 ```
+### never型
+- 何も代入できない型
+- 網羅性のチェックに使う
 ```TypeScript
+type blood_type = "a" | "b"| "o" | "ab"
+const blood : blood_type  = "o"
+
+function check_blood(blood:blood_type):void{
+switch(blood){
+    case "a":
+        console.log("a")
+    case "b":
+        console.log("b")
+    default:
+        const exhausttivenessCheck:never = blood // Type 'string' is not assignable to type 'never'.
+        break;
+
+    }
+}
 ```
 ```TypeScript
 ```
