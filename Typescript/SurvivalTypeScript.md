@@ -471,13 +471,59 @@ switch(blood){
     }
 }
 ```
+### unknown型
+
+- unknown | 他の変数に代入不可
+- any | 他の変数に代入可
+### アロー関数
 ```TypeScript
+const hello = () => console.log("hello")
+const hello2 = (w:string) => ({word:"hi" + w }) //noImplicitAnyオプションがついてる場合は引数に型宣言が必要
 ```
+### 関数の型宣言
 ```TypeScript
+type calc_function_interface = (n:number)=> number
+const increment: calc_function_interface = n => n+1
+const increment2 : calc_function_interface = function(n) {
+    return n + 1
+} 
+
+// 関数の実装内容から型宣言をすることも可能
+type increment_interface =  typeof increment
 ```
+
+### 巻き上げ
 ```TypeScript
+//関数式の場合、宣言前に実行はできない
+increment() //Block-scoped variable 'increment' used before its declaration.
+const increment = (n:number) => n+1
+
+// 変数宣言の場合、宣言前に実行できる　=　巻き上げ
+increment2(1)
+function increment2  (n:number) {
+    return n+1
+}
 ```
+
 ```TypeScript
+// 変数，引数パターン
+// 変数は値渡しなので関数内での処理は影響しない
+const change_num = (n:number) =>{
+    n = 3
+}
+let a = 1
+change_num(a)
+console.log(a)
+
+// オブジェクト，引数パターン
+// オブジェクトは参照渡しなので、関数内での処理が影響する
+let a_object = {num:1}
+type a_obj = typeof a_object
+const change_property = (o:a_obj)  => {
+    o.num = 3
+}
+change_property(a_object)
+console.log(a_object)
 ```
 ```TypeScript
 ```
