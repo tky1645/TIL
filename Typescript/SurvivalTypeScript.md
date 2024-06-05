@@ -525,9 +525,45 @@ const change_property = (o:a_obj)  => {
 change_property(a_object)
 console.log(a_object)
 ```
+### デフォルト引数
 ```TypeScript
+// デフォルト引数を使った関数式
+const func = (n = 0) => {
+    console.log(n)
+}
+const a = undefined
+console.log(typeof a)
+
+//デフォルト引数が使用される
+func()
+//引数がundefinedの時にデフォルト引数が使用されるのでundefinedを代入してもデフォルト引数が使用される
+func(a)
+//nullではデフォルト引数は使用されない
+func(null)
+
+//デフォルト値には式が書ける
+const func2 = (n:number = parseInt("1.5")) => console.log(n)
 ```
+### 残余引数
 ```TypeScript
+// デフォルト引数を使った関数式
+const func = (...param:number[]) => {
+    console.log(param)
+}
+//残余引数で渡した変数は必ず配列として扱われる
+func(1,2,3)
+//何も渡さないと空の配列として処理される
+func()
+
+//こんな時に残余引数は使える
+console.log(Math.max(1,10,100))
+console.log(Math.max(1,2,1.5,4,6,7,2,5))
+
+//スプレッド構文とややこしい｜こっちは配列をばらして引数にして渡す。
+const ary = [1,2,3]
+func(...ary)
+// ↑と同じ
+func(1,2,3)
 ```
 ```TypeScript
 ```
