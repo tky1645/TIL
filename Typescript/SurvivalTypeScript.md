@@ -565,8 +565,76 @@ func(...ary)
 // ↑と同じ
 func(1,2,3)
 ```
-```TypeScript
+### this引数
+```tsx
+class MyClass {
+  value: number;
+
+  constructor(value: number) {
+    this.value = value;
+  }
+
+  showValue(this: MyClass) {
+    console.log(this.value);
+  }
+}
 ```
+- コンストラクタ内の`this`は、`MyClass`の新しいインスタンスを指します。例えば、`new MyClass(10)`の呼び出し時に生成されるオブジェクトです。
+- `showValue`メソッドの`this: MyClass`は、`showValue`が呼ばれるときに`this`が必ず`MyClass`のインスタンスであることを保証します。
+
+```tsx
+const obj = new MyClass(10);
+obj.showValue(); // 正常に動作し、10を表示
+```
+
+- `obj`は`MyClass`のインスタンスです。
+- `obj.showValue()`の呼び出しでは、`this`は`obj`を指し、これは`MyClass`のインスタンスです。
+
+
+```tsx
+const show = obj.showValue;
+show(); // エラー: 型 'undefined' の 'value' プロパティにアクセスできません
+```
+
+- `const show = obj.showValue;`によって`showValue`メソッドが独立した関数として取り出されます。
+- `show()`の呼び出しでは、`this`は`undefined`となり、`MyClass`のインスタンスを指しません。これによりエラーが発生します。
+
+
+```tsx
+class MyClass {
+  value: number;
+
+  constructor(value: number) {
+    this.value = value;
+  }
+
+  showValue(this: MyClass) {
+    console.log(this.value);
+  }
+
+  delayedShowValue() {
+    setTimeout(this.showValue, 1000); // エラー: 'undefined' の 'value' プロパティにアクセスできません
+  }
+
+  fixedDelayedShowValue() {
+    setTimeout(() => this.showValue(), 1000); // 正常に動作
+  }
+}
+```
+
+- `delayedShowValue`メソッド内の`setTimeout(this.showValue, 1000);`では、`this.showValue`が独立した関数として渡されるため、`setTimeout`内で`this`が`undefined`となります。
+- `fixedDelayedShowValue`メソッド内の`setTimeout(() => this.showValue(), 1000);`では、アロー関数を使うことで外側のスコープの`this`を保持します。この場合、`this`は`MyClass`のインスタンスを指します。
+
+
+```tsx
+const obj = new MyClass(10);
+obj.delayedShowValue(); // エラー
+obj.fixedDelayedShowValue(); // 10を表示
+```
+
+- `obj.delayedShowValue()`を呼び出すと、`this`が`setTimeout`内で失われるためエラーになります。
+- `obj.fixedDelayedShowValue()`を呼び出すと、アロー関数が外側の`this`を保持するため、正しく`this.value`を参照でき、10が表示されます。
+
 ```TypeScript
 ```
 ```TypeScript
