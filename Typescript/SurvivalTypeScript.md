@@ -635,10 +635,163 @@ obj.fixedDelayedShowValue(); // 10を表示
 - `obj.delayedShowValue()`を呼び出すと、`this`が`setTimeout`内で失われるためエラーになります。
 - `obj.fixedDelayedShowValue()`を呼び出すと、アロー関数が外側の`this`を保持するため、正しく`this.value`を参照でき、10が表示されます。
 
+
+### キーワード引数
+- JS、TSにはキーワード引数はない。
+- そのためOption Objectパターンを利用する
+```TypeScript
+type Optional_Object = {
+    x:number
+}
+//オブジェクトを一つだけ引数にもつデザインパターン
+// function func1(obj){
+function func1(obj:Optional_Object){
+    console.log(obj.x)
+}
+func1({x:1})
+
+//分割代入引数で簡略化
+// function func2({x}){
+function func2({x}:{x:number}){
+    console.log(x)
+}
+func2({x:1})
+```
+### 型ガード
+```TypeScript
+//日付文字列を取得するだけの関数。組込みの関数がいけてなくてこんな処理が必要。
+function getDateNow(): string{
+    const now = new Date()
+    console.log(now)
+    const year:number = now.getFullYear()
+    const month:number = now.getMonth()  + 1
+    const day:number = now.getDate() 
+    const hour:number = now.getHours() 
+    const minute:number = now.getMinutes() 
+    
+    return (`${year}/${month}/${day} ${hour}:${minute}`)
+}
+
+class Plan {
+    id:number
+    date:string
+    num:number
+
+    constructor(){
+        this.id = 0
+        this.date = getDateNow()
+        this.num = 1
+
+        console.log(this.date)
+    }
+}
+const prodplan = new Plan()
+
+function isPlan(plan:object): plan is Plan{
+    return plan instanceof Plan;
+}
+
+//型ガード使ってみた
+function editPlan(planOrSomething:Plan|undefined){
+    if(isPlan(prodplan)){
+        prodplan.date // 型ガードによりPlanのインスタンスであることが保証されるのでプロパティにアクセスできる
+    }
+    prodplan.date //Plan型が保証されないのでアクセスできないはず・・・？なぜかできる
+}
+
+```
+### 自習｜type aliasの使いどころ
+```TypeScript
+type TPlan = {
+    id:number
+    date:string
+    num:number
+}
+
+class CPlan{
+    id:number
+    date:string
+    num:number
+    constructor(){
+        this.id = 0
+        this.date =""
+        this.num = 0 
+    }
+}
+
+//type aliasもクラスも同じように使える気がする
+function func1(plan:CPlan){
+    return plan
+}
+
+function func2(plan:TPlan){
+    return plan
+}
+//classのメリット
+//メソッドを追加できる
+
+//type aliasのメリット
+//複合型がとれる
+type TPlan2 = number | string
+
+```
+```TypeScript
+```
 ```TypeScript
 ```
 ```TypeScript
 ```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```TypeScript
+```
+```
+
+
+
+
+
+
 ```
 
 
