@@ -735,11 +735,92 @@ function func2(plan:TPlan){
 type TPlan2 = number | string
 
 ```
+### アサーション関数
+- ユーザー定義の型ガード関数として使われるのはType predicateが主ですが、Assertion functionという方法もあります。
+Type predicateはboolean型の戻り値に対して使いましたがこちらは関数が例外を投げるかどうかで判定します。
+- `assert n is number`の部分の目的は、TypeScriptの型システムに対して、この関数が成功した場合には、引数nが確実にnumberであることを保証することです。
 ```TypeScript
+function assertFunc(n:number):assert n is number{
+       if(typeof n  === "number"){
+        return
+    }
+    throw new Error()
+}
+
+// const n = 0
+assertFunc(n)
+n.valueOf()
 ```
+### 即時実行関数
 ```TypeScript
+//IIFEを使わないswitch文の書き方
+let result:string
+const fruitsName: string ="りんご"
+switch(fruitsName){
+    case "みかん":
+        result = "orange"
+        break
+    case "りんご":
+        result = "apple"
+        break
+}
+
+//IIFEを使うと式のようにIfやswitchを扱える
+//resultもconstで宣言できる
+const result2 = ((fruitsName: string):string => {
+    switch (fruitsName){
+        case "みかん":
+            return ""
+        case "りんご":
+            return "apple"
+    }
+    return "None"
+})(fruitsName)
 ```
+### コールバック関数
+- 設計パターン
+- 関数Aの引数に関数Bを渡して、関数Aの中で関数Bを実行する事
+- メリットは？
+  - 関数Aのふるまいを呼び出し側から制御できる
+    - 非同期処理とよく組み合わされる
+      - ただし、コールバック関数の中でコールバック関数を実行するなど可読性が著しく下がる可能性があるので、promiseの使用が一般的に.
+    - 同期処理で使われるコールバック関数もある
 ```TypeScript
+// 同期処理
+const arr = [1,2,3] 
+const arrDouble = arr.map((n) => n*2)
+
+console.log(arr)
+console.log(arrDouble)
+
+// 非同期処理
+setTimeout(() => {
+    console.log("do something")
+},1000)
+
+function func():void{
+    console.log("do func")
+}
+function func2(callback:() => void){
+    console.log("do func2")
+    callback()
+}
+
+//二重コールバック
+// setTimeoutのコールバック関数である無名関数がコールバック関数funcを引数にもつ関数func2を実行している
+setTimeout(()=>{
+    func2(func)
+},1000)
+
+// ↓深夜の愚行。2つ名以降のコールバック関数は宣言であり、実行されていない。なんなら構文エラーとなる
+setTimeout(()=>{
+    ()=>{
+        console.log("do func");
+        ()=>{
+            console.log("do func")
+    }}
+},1000)
+
 ```
 ```TypeScript
 ```
