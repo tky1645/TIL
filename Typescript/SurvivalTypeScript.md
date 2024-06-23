@@ -822,7 +822,42 @@ setTimeout(()=>{
 },1000)
 
 ```
+
+### Promise<T>
+- まずはコールバック関数だけで非同期処理を実装する例
+  - コールバック関数を引数にもつ関数（api1~3）が順番に呼び出されている
+  - `const finalized_result = api1(api2(result1, api3(result2,callback)))`のような宣言は構文エラーとなる
+    - これは`api3(result2,callback)`のような書き方はapi3関数の戻り値が実際には代入される**式**である
+    - 一方で、`(result2) => {api3(result2,callback)}`のような書き方は無名関数の**宣言**になるために関数自体が代入されるためである。
+    - `function`をもちいたapi2の宣言ではコールバック関数が引数として定義されているので後者の関数自体を宣言する必要がある。
 ```TypeScript
+function api1(callback){
+    console.log("api1")
+    // 適当な引数をもとにAPI呼び出し関数(api2)を叩く
+    callback(1)
+}
+
+function api2(arg:number, callback){
+    console.log("api2")
+    // 受け取った値をもとに別のAPI(api3)を叩く
+    callback(arg)
+}
+
+function api3(result2:number, callback){
+    console.log("api3")
+    // API処理の関数のダミー
+    callback(result2)
+}
+const callback = () => {}
+
+// const finalized_result = api1(api2(result1, api3(result2,callback)))
+const finalized_result = api1(
+        (result1:number) => {api2(
+                        result1, (result2:number) => {api3(
+                                                        result2,callback
+                                                      )}
+                      )}
+)
 ```
 ```TypeScript
 ```
