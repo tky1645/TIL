@@ -27,8 +27,10 @@
     - 具体的には各レイヤーの構成が手続き形式で書いてある
         
         > 各命令（例えば `RUN`, `COPY`, `ADD` など）はイメージの新しいレイヤーを作成します。
-        > 
 
+- 全体の関係性
+![alt text](images/PXL_20240812_045728086.jpg)
+  
 ## メモ | [https://docs.docker.jp/get-started/08_using_compose.html](https://docs.docker.jp/get-started/08_using_compose.html)
 
 docker compose 
