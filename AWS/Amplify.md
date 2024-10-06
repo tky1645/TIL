@@ -20,7 +20,7 @@
             - 'yarn install'
         build:
         commands:
-            - 'yarn run build'
+            - 'yarn run buildd'
     artifacts:
         <!-- build完了後の出力ファイルのディレクトリを指定-->
         baseDirectory: watering-app/build
