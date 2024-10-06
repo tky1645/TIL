@@ -19,3 +19,7 @@ env/
 
 # shellgei160
 shell/shellgei160/*
+
+# venv
+.venv/
+
